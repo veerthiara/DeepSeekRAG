@@ -7,6 +7,7 @@ from typing import List, Dict, Any
 import asyncio
 from chatbot_be.rag.data_extractor import fetch_product_descriptions
 from chatbot_be.rag.vector_store import VectorStore
+from chatbot_be.rag.llm_client import llm_client
 
 class RAGService:
     """
@@ -50,23 +51,21 @@ class RAGService:
     
     async def answer_question(self, question: str) -> Dict[str, Any]:
         """
-        Answer a question using RAG approach.
+        Answer a question using RAG approach with DeepSeek LLM.
         
         Args:
             question (str): User's question
-            
         Returns:
             Dict[str, Any]: Contains the answer and retrieved context
         """
         # Step 1: Retrieve relevant context
         context_docs = await self.search_context(question, top_k=3)
         
-        # Step 2: Format the context
-        context_text = "\n".join([f"- {doc}" for doc in context_docs])
-        
-        # Step 3: For now, return context-based answer
-        # (Later you can integrate with an LLM like DeepSeek, OpenAI, etc.)
-        answer = self._generate_simple_answer(question, context_docs)
+        # Step 2: Generate answer using DeepSeek LLM
+        try:
+            answer = await llm_client.generate(question, context_docs)
+        except Exception as e:
+            answer = f"Error generating answer with DeepSeek LLM: {str(e)}"
         
         return {
             "question": question,
