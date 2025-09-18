@@ -5,7 +5,7 @@ Entry point for the FastAPI application.
 
 from fastapi import FastAPI, HTTPException
 from chatbot_be.db import get_db_pool
-from chatbot_be.routers import customers, rag
+from chatbot_be.routers import customers, rag, sql
 from chatbot_be.rag.rag_service import rag_service
 
 app = FastAPI(title="DeepSeek RAG Chatbot Backend")
@@ -13,6 +13,7 @@ app = FastAPI(title="DeepSeek RAG Chatbot Backend")
 # Include routers for modular endpoints
 app.include_router(customers.router)
 app.include_router(rag.router)
+app.include_router(sql.router)
 
 @app.on_event("startup")
 async def startup_event():

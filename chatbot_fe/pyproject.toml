@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "chatbot-fe"
+version = "0.1.0"
+description = "Gradio frontend for DeepSeek RAG Chatbot"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "chatbot_fe"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+gradio = "^4.0.0"
+requests = "^2.31.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
