@@ -8,10 +8,10 @@ from typing import Dict, List, Optional, Any, Tuple
 import asyncio
 from datetime import datetime
 
-from .session_manager import SessionManager, ConversationSession, session_manager
-from .query_router import QueryRouter, QueryType, query_router
-from .rag_service import RAGService
-from .sql_client import ask_sql_agent
+from app.services.session_manager import SessionManager, ConversationSession, session_manager
+from app.services.query_router import QueryRouter, QueryType, query_router
+from app.services.rag_service import RAGService
+from app.services.sql_client import ask_sql_agent_sync
 
 class ConversationalResponse:
     """
@@ -186,7 +186,7 @@ class ConversationalService:
         enhanced_question = self._enhance_question_with_context(question, session)
         
         # Use SQL agent function to get answer
-        sql_result = await ask_sql_agent(enhanced_question)
+        sql_result = ask_sql_agent_sync(enhanced_question)
         
         response.answer = self._improve_sql_answer(sql_result, session, analysis)
         response.query_type_used = "SQL"
@@ -204,7 +204,7 @@ class ConversationalService:
         """
         # Run both RAG and SQL in parallel for efficiency
         rag_task = self.rag_service.answer_question(question)
-        sql_task = ask_sql_agent(question)
+        sql_task = asyncio.create_task(asyncio.to_thread(ask_sql_agent_sync, question))
         
         try:
             # Wait for both results with timeout

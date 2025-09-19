@@ -1,0 +1,33 @@
+# FastAPI and server dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Database dependencies
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+
+# LangChain dependencies
+langchain==0.1.0
+langchain-community==0.0.10
+langchain-openai==0.0.5
+
+# Vector store and embeddings
+faiss-cpu==1.7.4
+sentence-transformers==2.2.2
+
+# Data and utilities
+pandas==2.1.4
+numpy==1.24.3
+python-dotenv==1.0.0
+
+# Async and utilities
+asyncio-throttle==1.0.2
+aiofiles==23.2.1
+
+# Pydantic for data validation
+pydantic[email]==2.5.0
+pydantic-settings==2.1.0
+
+# CORS and middleware
+python-cors==1.0.0

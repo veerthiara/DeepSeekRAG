@@ -1,15 +1,14 @@
 [tool.poetry]
 name = "chatbot-fe"
 version = "0.1.0"
-description = "Gradio frontend for DeepSeek RAG Chatbot"
+description = "Simple Streamlit frontend for DeepSeek RAG Chatbot"
 authors = ["Your Name <your.email@example.com>"]
 readme = "README.md"
-packages = [{include = "chatbot_fe"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-gradio = "^4.0.0"
 requests = "^2.31.0"
+streamlit = "^1.49.1"
 
 [build-system]
 requires = ["poetry-core"]
